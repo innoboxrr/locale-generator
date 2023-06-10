@@ -1,0 +1,35 @@
+{
+    "name": "innoboxrr/locale-generator",
+    "description": "Generador de traducci\u00f3nes en formato JSON",
+    "type": "library",
+    "license": "InnoboxRR",
+    "autoload": {
+        "psr-4": {
+            "Innoboxrr\\LocaleGenerator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Homero Raul",
+            "email": "h.raulvc@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "orchestra/testbench": "^8.5"
+    },
+    "require": {
+        "innoboxrr/larapack-generator": "^2.0",
+        "guzzlehttp/guzzle": "^7.7"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Innoboxrr\\LocaleGenerator\\Providers\\AppServiceProvider",
+                "Innoboxrr\\LocaleGenerator\\Providers\\AuthServiceProvider",
+                "Innoboxrr\\LocaleGenerator\\Providers\\EventServiceProvider",
+                "Innoboxrr\\LocaleGenerator\\Providers\\RouteServiceProvider"
+            ]
+        }
+    }
+}
