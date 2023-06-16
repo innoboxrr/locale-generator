@@ -2,7 +2,7 @@
     "name": "innoboxrr/locale-generator",
     "description": "Generador de traducci\u00f3nes en formato JSON",
     "type": "library",
-    "license": "InnoboxRR",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Innoboxrr\\LocaleGenerator\\": "src/"
