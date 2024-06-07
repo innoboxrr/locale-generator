@@ -157,15 +157,18 @@ class GenerateLocaleCommand extends Command
 
 	public function extractText($content)
 	{
-		
-	    $pattern = "/__\(['\"]([^\"']+)['\"]\)|t\(['\"]([^\"']+)['\"]\)|\{\{__\(['\"]([^\"']+)['\"]\)\}\}|\{\{t\(['\"]([^\"']+)['\"]\)\}\}/";
+		// Patrón regex para capturar texto en __(), t(), {{ __() }}, {{ t() }}
+		$pattern = "/__\(['\"]([^\"']+)['\"]\)|t\(['\"]([^\"']+)['\"]\)|\{\{__\(['\"]([^\"']+)['\"]\)\}\}|\{\{t\(['\"]([^\"']+)['\"]\)\}\}/";
 
-	    preg_match_all($pattern, $content, $matches);
+		preg_match_all($pattern, $content, $matches);
 
-	    $texts = array_filter(array_merge($matches[1], $matches[2]));
+		// Combina todos los grupos de captura y elimina valores vacíos
+		$texts = array_merge($matches[1], $matches[2], $matches[3], $matches[4]);
+		$texts = array_filter($texts);
 
-	    return $texts;
+		return $texts;
 	}
+
 
 
 	public function loadJsonFile() 
