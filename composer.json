@@ -19,7 +19,7 @@
         "orchestra/testbench": "^8.5"
     },
     "require": {
-        "innoboxrr/larapack-generator": "^2.0",
+        "innoboxrr/larapack-generator": "^2.0|^3.0|^4.0",	
         "guzzlehttp/guzzle": "^7.7"
     },
     "extra": {
