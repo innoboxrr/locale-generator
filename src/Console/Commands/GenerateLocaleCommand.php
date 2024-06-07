@@ -32,9 +32,9 @@ class GenerateLocaleCommand extends Command
 
     	parent::__construct();
 
-    	$this->routes = config('innoboxrrlocalegenerator.routes');
+    	$this->routes = config('locale-generator.routes');
 
-    	$this->extensions = config('innoboxrrlocalegenerator.extensions');
+    	$this->extensions = config('locale-generator.extensions');
 
     }
     
@@ -64,7 +64,7 @@ class GenerateLocaleCommand extends Command
     public function getFilePath() 
     {
 
-    	$dir = config('innoboxrrlocalegenerator.lang_path', resource_path('lang/json'));
+    	$dir = config('locale-generator.lang_path', resource_path('lang/json'));
 
         // Verificar si el directorio existe
         if (!is_dir($dir)) {

@@ -55,7 +55,7 @@ class TranslateLocaleCommand extends Command
     public function getFilePath($filename) 
     {
 
-        $dir = config('innoboxrrlocalegenerator.lang_path', resource_path('lang/json'));
+        $dir = config('locale-generator.lang_path', resource_path('lang/json'));
 
         // Verificar si el directorio existe
         if (!is_dir($dir)) {
@@ -85,7 +85,7 @@ class TranslateLocaleCommand extends Command
 
         $translatedTranslations = [];
 
-        $GOOGLE_API_KEY = config('innoboxrrlocalegenerator.google_api_key'); 
+        $GOOGLE_API_KEY = config('locale-generator.google_api_key'); 
 
         $client = new Client();
 

@@ -12,7 +12,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         
-        $this->mergeConfigFrom(__DIR__ . '/../../config/innoboxrrlocalegenerator.php', 'innoboxrrlocalegenerator');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/locale-generator.php', 'locale-generator');
 
         $this->app->bind('command.locale.generate', GenerateLocaleCommand::class);
 
@@ -30,13 +30,13 @@ class AppServiceProvider extends ServiceProvider
         
         // $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'innoboxrrlocalegenerator');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'locale-generator');
 
         if ($this->app->runningInConsole()) {
             
-            // $this->publishes([__DIR__.'/../../resources/views' => resource_path('views/vendor/innoboxrrlocalegenerator'),], 'views');
+            // $this->publishes([__DIR__.'/../../resources/views' => resource_path('views/vendor/locale-generator'),], 'views');
 
-            $this->publishes([__DIR__.'/../../config/innoboxrrlocalegenerator.php' => config_path('innoboxrrlocalegenerator.php')], 'config');
+            $this->publishes([__DIR__.'/../../config/locale-generator.php' => config_path('locale-generator.php')], 'config');
 
         }
 
