@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         
         // $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'locale-generator');
+        // $this->loadViewsFrom(__DIR__.'/../../resources/views', 'locale-generator');
 
         if ($this->app->runningInConsole()) {
             
