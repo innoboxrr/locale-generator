@@ -24,6 +24,10 @@ return [
     */
     'extensions' => ['php', 'vue', 'js', 'jsx', 'ts', 'tsx'],
 
-    'google_api_key' => null,
+    /*
+    | Clave de la API de Google Cloud Translation que usa locale:translate.
+    | No se escribe aqui: va en el .env como GOOGLE_TRANSLATE_API_KEY.
+    */
+    'google_api_key' => env('GOOGLE_TRANSLATE_API_KEY'),
 
 ];
