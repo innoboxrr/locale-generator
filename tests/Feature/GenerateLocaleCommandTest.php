@@ -51,6 +51,59 @@ final class GenerateLocaleCommandTest extends TestCase
     }
 
     #[Test]
+    public function solo_extrae_llamadas_a_las_funciones_de_traduccion_con_una_cadena_literal(): void
+    {
+        $this->source('tricky.js', <<<'JS'
+            alert('alert no es clave')
+            this.$emit('emit no es clave')
+            emit("emit tampoco")
+            import('./import-no-es-clave.js')
+            const lazy = () => import("./tampoco.js")
+            i18n.t('miembro no es clave')
+            obj.__('miembro con guiones no es clave')
+            my_t('sufijo no es clave')
+            foo$t('dolar pegado no es clave')
+            t(`plantilla ${nombre}`)
+            t('concatenada ' + nombre)
+            t(variable)
+            t('')
+            t('Clave con :name', { name })
+            t( 'Con espacios' )
+            $t("Dolar t con dobles")
+            this.$t('Dolar t tras this')
+            trans('Trans literal')
+            __("It's fine")
+            __('Escaped \'quote\'')
+            t(
+                'Multilinea'
+            )
+            JS);
+
+        $this->source('Controller.php', <<<'PHP'
+            <?php
+            $message = __('Desde PHP');
+            $other = __('Concatenada ' . $name);
+            PHP);
+
+        $this->artisan('locale:generate', ['locale' => 'es'])->assertSuccessful();
+
+        $this->assertEqualsCanonicalizing(
+            [
+                'Clave con :name',
+                'Con espacios',
+                'Dolar t con dobles',
+                'Dolar t tras this',
+                'Trans literal',
+                "It's fine",
+                "Escaped 'quote'",
+                'Multilinea',
+                'Desde PHP',
+            ],
+            array_keys($this->readJson($this->directory . '/lang/es.json'))
+        );
+    }
+
+    #[Test]
     public function sin_lang_path_escribe_en_el_lang_path_de_laravel(): void
     {
         config()->set('locale-generator.lang_path', null);

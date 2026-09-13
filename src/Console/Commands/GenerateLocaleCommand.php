@@ -138,23 +138,19 @@ class GenerateLocaleCommand extends Command
 
     public function createDictionary()
     {
-        // Diccionario de traducciones actualizado
         $updatedTranslations = [];
 
-        // Recorrer los files y extraer los texts a traducir
-        foreach ($this->files as $file) {
-            $content = file_get_contents($file);
+        // Las claves nuevas se añaden en el orden en que aparecen, y ese orden
+        // no puede depender de como liste el disco el sistema operativo.
+        $files = $this->files;
+        sort($files);
 
-            $lines = explode("\n", $content);
-
-            foreach ($lines as $line) {
-                $texts = $this->extractText($line);
-
-                foreach ($texts as $text) {
-                    // Verificar si la key ya existe y agregarla si no existe
-                    if (! isset($updatedTranslations[$text])) {
-                        $updatedTranslations[$text] = '';
-                    }
+        foreach ($files as $file) {
+            // El archivo entero y no linea a linea: una llamada puede partirse
+            // en varias lineas.
+            foreach ($this->extractText((string) file_get_contents($file)) as $text) {
+                if (! array_key_exists($text, $updatedTranslations)) {
+                    $updatedTranslations[$text] = '';
                 }
             }
         }
@@ -162,16 +158,36 @@ class GenerateLocaleCommand extends Command
         return $updatedTranslations;
     }
 
+    /**
+     * Las claves literales de __('…'), t('…'), $t('…') y trans('…').
+     *
+     * El nombre no puede ir pegado a una letra, un digito, un guion bajo, un
+     * punto o un $: alert('x'), emit('x'), import('x') o i18n.t('x') no son
+     * claves. $t es la excepcion explicita, y se admite tambien tras un punto
+     * (this.$t('x')), que es como se llama desde la Options API de Vue.
+     *
+     * Solo cuenta una cadena completa como primer argumento, entre comillas
+     * simples o dobles: t('Hola ' + nombre) o t(`Hola ${nombre}`) no son
+     * claves, y adivinarlas escribiria basura en el archivo.
+     *
+     * @return array<int, string>
+     */
     public function extractText($content)
     {
-        // Patrón regex para capturar texto en __(), t(), {{ __() }}, {{ t() }}
-        $pattern = "/__\(['\"]([^\"']+)['\"]\)|t\(['\"]([^\"']+)['\"]\)|\{\{__\(['\"]([^\"']+)['\"]\)\}\}|\{\{t\(['\"]([^\"']+)['\"]\)\}\}/";
+        $pattern = '/(?:(?<![A-Za-z0-9_.$])(?:__|trans|t)|(?<![A-Za-z0-9_$])\$t)'
+            . '\(\s*([\'"])((?:(?!\1)[^\\\\]|\\\\.)*)\1\s*[,)]/s';
 
-        preg_match_all($pattern, $content, $matches);
+        preg_match_all($pattern, (string) $content, $matches);
 
-        // Combina todos los grupos de captura y elimina valores vacíos
-        $texts = array_merge($matches[1], $matches[2], $matches[3], $matches[4]);
-        $texts = array_filter($texts);
+        $texts = [];
+
+        foreach ($matches[2] as $raw) {
+            $text = (string) preg_replace('/\\\\(.)/s', '$1', $raw);
+
+            if ($text !== '') {
+                $texts[] = $text;
+            }
+        }
 
         return $texts;
     }
