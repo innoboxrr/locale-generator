@@ -51,17 +51,27 @@ class GenerateLocaleCommand extends Command
 
         $this->filePath = $this->getFilePath();
 
+        $this->file = $this->loadJsonFile();
+
+        // Un archivo que no se puede leer lo ha roto alguien a mano: escribir
+        // encima borraria lo que tuviera.
+        if (! is_array($this->file)) {
+            $this->error("{$this->filePath} is not valid JSON; it was left untouched.");
+
+            return self::FAILURE;
+        }
+
         $this->files = $this->getRoutes();
 
-        $this->dictionary = $this->createDictionary(); // Este es el diccionario con todas las claves
+        $this->dictionary = $this->createDictionary();
 
-        $this->file = $this->loadJsonFile(); // Este es el archivo si existe
+        $this->updateJsonFile();
 
-        $this->updateJsonFile(); // Combina el diccionario en conjunto con file
-
-        $this->saveJsonFile(); // Guarda el archivo JSON
+        $this->saveJsonFile();
 
         $this->info('Generating ' . $this->fileName);
+
+        return self::SUCCESS;
     }
 
     public function getFilePath()
@@ -192,32 +202,49 @@ class GenerateLocaleCommand extends Command
         return $texts;
     }
 
+    /**
+     * El contenido del archivo si existe: un array, o null si no es JSON valido.
+     */
     public function loadJsonFile()
     {
-        if (file_exists($this->filePath)) {
-            $content = file_get_contents($this->filePath);
-
-            return json_decode($content, true);
+        if (! file_exists($this->filePath)) {
+            return [];
         }
 
-        return [];
+        $content = (string) file_get_contents($this->filePath);
+
+        if (trim($content) === '') {
+            return [];
+        }
+
+        $decoded = json_decode($content, true);
+
+        return is_array($decoded) ? $decoded : null;
     }
 
+    /**
+     * Lo que ya tiene el archivo se queda tal cual, incluidas las claves que ya
+     * no aparecen en el codigo: una traduccion escrita a mano no se pierde por
+     * mover o renombrar un componente. Las claves nuevas se añaden al final,
+     * vacias.
+     */
     public function updateJsonFile()
     {
+        $merged = $this->file;
+
         foreach ($this->dictionary as $key => $value) {
-            if (isset($this->file[$key])) {
-                $this->dictionary[$key] = $this->file[$key];
+            if (! array_key_exists($key, $merged)) {
+                $merged[$key] = $value;
             }
         }
 
-        return $this->dictionary;
+        return $this->dictionary = $merged;
     }
 
     public function saveJsonFile()
     {
-        $json = json_encode($this->dictionary, JSON_PRETTY_PRINT);
+        $json = json_encode((object) $this->dictionary, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-        file_put_contents($this->filePath, $json);
+        file_put_contents($this->filePath, $json . "\n");
     }
 }

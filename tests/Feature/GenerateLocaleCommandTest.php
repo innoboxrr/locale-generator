@@ -104,6 +104,43 @@ final class GenerateLocaleCommandTest extends TestCase
     }
 
     #[Test]
+    public function conserva_las_traducciones_existentes_al_combinar(): void
+    {
+        $this->source('app.js', "t('Save')\nt('New key')\n");
+        mkdir($this->directory . '/lang');
+        file_put_contents($this->directory . '/lang/es.json', json_encode([
+            'Save' => 'Guardar',
+            'Removed from code' => 'Quitada del código',
+            'Pending' => '',
+        ]));
+
+        $this->artisan('locale:generate', ['locale' => 'es'])->assertSuccessful();
+
+        $this->assertSame(
+            [
+                'Save' => 'Guardar',
+                'Removed from code' => 'Quitada del código',
+                'Pending' => '',
+                'New key' => '',
+            ],
+            $this->readJson($this->directory . '/lang/es.json')
+        );
+        $this->assertStringContainsString('Quitada del código', (string) file_get_contents($this->directory . '/lang/es.json'));
+    }
+
+    #[Test]
+    public function no_escribe_encima_de_un_json_invalido(): void
+    {
+        $this->source('app.js', "t('Save')\n");
+        mkdir($this->directory . '/lang');
+        file_put_contents($this->directory . '/lang/es.json', '{"Save": "Guardar",');
+
+        $this->artisan('locale:generate', ['locale' => 'es'])->assertFailed();
+
+        $this->assertSame('{"Save": "Guardar",', file_get_contents($this->directory . '/lang/es.json'));
+    }
+
+    #[Test]
     public function sin_lang_path_escribe_en_el_lang_path_de_laravel(): void
     {
         config()->set('locale-generator.lang_path', null);
