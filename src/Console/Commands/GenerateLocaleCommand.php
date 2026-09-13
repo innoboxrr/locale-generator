@@ -19,6 +19,8 @@ class GenerateLocaleCommand extends Command
 
     protected $fileName;
 
+    protected string $filePath;
+
     protected $files;
 
     protected $dictionary;
