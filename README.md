@@ -1,125 +1,54 @@
-# Laravel Auth Package
+# Locale Generator
 
-## Apoya Nuestro Trabajo 🙌
+Collects the translation keys your Laravel app and its SPA use into `<locale>.json`, keeps the translations you already have, and can fill the missing ones with Google Translate.
 
-Desarrollamos estos paquetes de software de manera gratuita con la intención de contribuir a la comunidad de Laravel y facilitar la vida de los desarrolladores. Nos apasiona compartir lo que hemos aprendido y ver cómo nuestros paquetes ayudan a las personas en sus proyectos.
-
-Sin embargo, también requerimos de apoyo para seguir creando y manteniendo estos recursos. Si estás en la posición de poder hacerlo, te invitamos a inscribirte a uno de nuestros cursos de pago. No solo estarías apoyando nuestro trabajo, sino que también podrías adquirir nuevas habilidades y conocimientos.
-
-En particular, te recomendamos nuestro curso [Desarrollo de paquetes en Laravel para mejorar tu productividad](https://laravelers.com/course/275). Este curso está diseñado para enseñarte a desarrollar tus propios paquetes de Laravel y PHP. Al inscribirte, no solo estarás apoyando nuestro trabajo, sino que también estarás invirtiendo en tu propio crecimiento y desarrollo como programador.
-
-Gracias por considerar esta opción y por tu apoyo continuo a nuestra labor. ¡Apreciamos enormemente a nuestra comunidad!
-
-## Comenzando 🚀
-
-El paquete innoboxrr/laravel-auth nace ante la demanda de un sistema de autenticación completo y centralizado que se adapte a cualquier tipo de aplicación, ya sea una web convencional, una SPA o una APIRestful.
-
-Nuestra ambición es que, a medida que el paquete evolucione, se consolide como una alternativa unificada y accesible, sin que su implementación requiera cambios significativos en la estructura de un proyecto existente. Además, estamos comprometidos con el desarrollo de estrategias de autenticación innovadoras y vanguardistas.
-
-El paquete de Laravel Auth se destaca por su alto nivel de personalización. La implementación de Closures o funciones anónimas permite a los desarrolladores adaptar cada parte del código a sus necesidades específicas. Además, incluye un archivo de configuración con opciones para personalizar aún más su comportamiento.
-
-¿Por qué elegir innoboxrr/laravel-auth en lugar de las soluciones de autenticación que Laravel ofrece actualmente? La respuesta es sencilla: flexibilidad y desacoplamiento. Este paquete ha sido diseñado para integrarse sin problemas con cualquier estructura de proyecto, minimizando los posibles conflictos.
-
-En términos de seguridad, el paquete innoboxrr/laravel-auth adopta los mismos sistemas que Laravel recomienda y proporciona, pero de una manera unificada y armónica. Esto significa que puedes centrarte en desarrollar tu aplicación sin tener que preocuparte por cada aspecto de la implementación de la seguridad. Nuestro paquete se encarga de ello, dándote la tranquilidad de que tu aplicación está protegida.
-
-## Pre-requisitos 📋
-
-### Requisitos del sistema:
-- PHP 8.1 o superior
-- Composer
-
-### Dependencias
-- "laravel/sanctum": "^3.2",
-- "laravel/socialite": "^5.6"
-
-## Instalación 🔧
-
-Pasos para la instalación del proyecto.
-
-Para instalar el paquete solo debe ejecutar 
-
-``composer require innoboxrr/laravel-auth``
-
-## Ejecutando las pruebas ⚙️
-
-... En construcción
-
-
-## Construido con 🛠️
-
-Lista de tecnologías y herramientas utilizadas en el proyecto:
-- PHP
-- Laravel 10
-- Composer
-
-## Contributing 🖇️
-
-Si desea colaborar dar sugerencias o reportar alguna falla en el código lo puede hacer a través de los issues de GitHub en: [https://github.com/innoboxrr/laravel-auth/issues](https://github.com/innoboxrr/laravel-auth/issues)
-
-## Versionado 📌
-
-El proyecto emplea un sistema de versionadao SemVer que le permite identificar la corrección de errores, la implementación de nuevas características así como actualizaciones mayores. En estos casos le proporcionaremos información detallada para realizar las actualizaciones correspondientes.
-
-## Autores ✒️
-
-Lista de los autores del proyecto.
- - Homero Raul Vargas Cruz
-
-## Licencia 📄
-
-Este paquete se encuentra bajo la licencia MIT. Esto significa que puedes usarlo de manera gratuita para cualquier propósito, incluso para propósitos comerciales. No obstante, hay algunas condiciones que debes tener en cuenta.
-
-La licencia MIT te concede el derecho de usar, copiar, modificar, fusionar, publicar, distribuir, sublicenciar y/o vender copias del software. Sin embargo, en todos estos casos, debes proporcionar una copia del aviso de la licencia y el aviso de derechos de autor en todas las copias o partes sustanciales del software.
-
-El software se proporciona "tal cual", sin garantía de ningún tipo, expresa o implícita, incluyendo pero no limitado a las garantías de comerciabilidad, aptitud para un propósito particular y no infracción. En ningún caso, los autores o los titulares de los derechos de autor serán responsables de cualquier reclamación, daños u otras responsabilidades, ya sea en una acción de contrato, agravio o de otro modo, que surjan de, estén en conexión con el software o el uso u otras operaciones en el software.
-
-Para ver la licencia completa, por favor visita el archivo LICENSE incluido en este paquete o haz [click aquí](https://opensource.org/licenses/MIT) para verla en la página oficial de la licencia MIT en Open Source Initiative.
-
-## Expresiones de Gratitud 🎁
-
-Como en todos mis proyectos agradezco a mis padres, hermanos, esposa e hijos quienes son mi inspiración mi motor y razón de dar cada día siempre lo mejor de mi.
-
-⌨️ con ❤️ por Homero Raul Vargas Cruz 😊
-
-## Notas para el desarrollador
-
-De manera general el listado de funciones que ofrece el paquete actualmente son:
-
-- Ruta `POST` para **registrar** al usuario
-- Ruta `POST` para **autenticar** al usuario
-- Ruta `POST` para **cerrar sesión** del usuario
-- Ruta `POST` para **enviar enlace de recuperación de cuenta** para restablecer la cuenta
-- Ruta `POST` para **restablecer la cuenta del usuario** mediente un hash de verificación.
-- Ruta `POST` para **mandar email de verificación** 
-- Ruta `POST` para **recuperar el usuario actualmente identificado**
-- Ruta `GET` para **verificar el correo** después de que el usuario ha dado clic en el correo de verificación.
-- Ruta `POST` para **crear un token de acceso**. Esto es util para identificaciones via API
-- Ruta `POST` para **recuperar los tokens** de un usuario actualmente identificado
-- Ruta `POST` para **revocar un token** especifico de un usuario
-- Ruta `POST` para **revocar todos los tokens** de un usuario identificado
-- Ruta `GET` para **login o registro con redes sociales**
-- Ruta `GET` para **confirmar el login con redes sociales**
-
-## Socialite
-
-El paquete viene configurado para el acceso con redes sociales mediente el paquete de Socialite. 
-Para añadir los provedores de servicio de Socialite, debe modificar el archivo de configuración de services
-
-```php
-
-<?php
-
-return [
-
-    // ...
-
-    'google' => [
-        'client_id' => '125739176818-crrssv3nf9ojsanmasdsldef1t5oaoto.apps.googleusercontent.com',
-        'client_secret' => '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',
-        'redirect' => '/auth/social/google/callback',
-    ]
-
-];
-
-
+```bash
+php artisan locale:generate es      # add the keys found in the code to es.json
+php artisan locale:translate es     # translate the ones that are still empty
 ```
+
+## Install
+
+```bash
+composer require innoboxrr/locale-generator
+```
+
+The service providers are auto-discovered. Publishing the config is optional; its tag is `config`, and passing `--provider` keeps other packages that use the same tag from publishing their files too:
+
+```bash
+php artisan vendor:publish --provider="Innoboxrr\LocaleGenerator\Providers\AppServiceProvider" --tag=config
+```
+
+## Configuration
+
+| Key | Default | Meaning |
+|---|---|---|
+| `lang_path` | `env('LOCALE_GENERATOR_LANG_PATH')`, or `lang_path()` when empty | Directory of the `<locale>.json` files. A relative path is resolved against the project root. |
+| `routes` | `[resource_path()]` | Directories to scan. `node_modules` and `vendor` are always skipped. |
+| `extensions` | `php, vue, js, jsx, ts, tsx` | Extensions of the files to read. |
+| `google_api_key` | `env('GOOGLE_TRANSLATE_API_KEY')` | Used by `locale:translate`. |
+
+An empty `routes` or `extensions`, as in a config published by an older version, means the default.
+
+If your SPA loads its translations from another directory, point `lang_path` there:
+
+```dotenv
+LOCALE_GENERATOR_LANG_PATH=resources/locales
+```
+
+## `locale:generate {locale}`
+
+Extracts the literal keys of `__('…')`, `trans('…')`, `t('…')` and `$t('…')` (also `this.$t('…')`), in single or double quotes, and merges them into `<lang_path>/<locale>.json`.
+
+- The key has to be a complete string literal as the first argument: `t('Hello ' + name)` and template literals are skipped.
+- The function name can't be glued to something else: `alert('x')`, `emit('x')`, `import('x')` or `i18n.t('x')` are not keys.
+- Entries already in the file are kept as they are, including keys that no longer appear in the code. New keys are appended with an empty value; until they are translated, Laravel's `__()` shows the key itself.
+- If the existing file isn't valid JSON, it is left untouched and the command fails.
+
+## `locale:translate {filename} {--force}`
+
+Translates the empty values of `<lang_path>/<filename>.json` with the Google Cloud Translation API (v2), one request per key. The target language is the file name: `es`, or `pt_BR`, sent as `pt-BR`. Both `es` and `es.json` are accepted.
+
+- Set `GOOGLE_TRANSLATE_API_KEY` in `.env`. Without it the command fails without calling Google.
+- Existing translations are not overwritten. `--force` translates every key again.
+- If Google fails halfway, the translations obtained so far are saved and the command exits with an error.
