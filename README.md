@@ -52,3 +52,7 @@ Translates the empty values of `<lang_path>/<filename>.json` with the Google Clo
 - Set `GOOGLE_TRANSLATE_API_KEY` in `.env`. Without it the command fails without calling Google.
 - Existing translations are not overwritten. `--force` translates every key again.
 - If Google fails halfway, the translations obtained so far are saved and the command exits with an error.
+
+## Documentación / Documentation
+
+Documentación completa del ecosistema, en español y en inglés / Full ecosystem documentation, in Spanish and English: <https://innoboxrr.github.io/docs/paquetes/locale-generator>
