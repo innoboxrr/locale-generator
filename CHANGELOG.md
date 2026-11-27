@@ -15,6 +15,12 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Fixed
 
+## [2.1.1] - 27-11-2026
+
+### Changed
+ - `innoboxrr/larapack-generator` en desarrollo: `^7.0` -> `^9.0`, la línea base del ecosistema.
+ - `phpunit/phpunit` en desarrollo: `^11.5 || ^12.0` -> `^12.0 || ^13.0`, la de la línea base.
+
 ## [2.1.0] - 13-09-2026
 
 Correcciones para usarlo en una aplicación Laravel 13 nueva con un SPA en Vue o
